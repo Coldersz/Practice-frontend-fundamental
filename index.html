@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shadow DOM in Web Components</title>
+</head>
+
+<body>
+  <image-figure src="https://i.imgur.com/iJq78XH.jpg" alt="Dicoding Logo" caption="Huruf g dalam logo Dicoding">
+  </image-figure>
+  
+  <!-- styling dalam elemen figure juga akan mempengaruhi elemen di luarnya, kecuali menggunakan 'attachShadow'  -->
+
+  <figure>
+    <img src="https://i.imgur.com/iJq78XH.jpg" alt="Dicoding logo">
+    <figcaption>Huruf g dalam Dicoding</figcaption>
+  </figure>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
