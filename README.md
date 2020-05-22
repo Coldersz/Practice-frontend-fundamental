@@ -1,2 +1,2 @@
 # Practice-frontend-fundamental
-This repo for practice only
+This repo is for practice only
