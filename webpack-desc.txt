@@ -1,0 +1,73 @@
+
+Terdapat 5 (lima) konsep penting dalam webpack yang perlu kita ketahui sebelum menggunakan webpack itu sendiri.
+Dari 5 (lima) konsep tersebut kita tahu bagaimana perilaku dari webpack ketika ia dijalankan.
+
+Berikut penjelasan singkat dari kelima konsep tersebut :
+  - Entry   : Titik awal di mana webpack akan menganalisa berkas dan membentuk dependency graph.
+  - Output  : Berkas bundel yang dihasilkan dari berkas-berkas yang dianalisis webpack berdasarkan entry point.
+  - Loaders : Transformation tools pada webpack, yang akan memproses setiap berkas selain JavaScript atau
+              JSON yang kita impor menjadi format yang dapat digunakan ke tahap produksi.
+  - Plugin  : Digunakan untuk melakukan tugas seperti optimasi bundel, management aset dan sebagainya.
+  - Mode    : Kondisi yang digunakan webpack sebagai acuan optimasi apa saja yang harus diterapkan dalam melakukan tugasnya.
+              Dalam mode kita dapat menetapkan nilai production, development ataupun none.
+
+
+
+Ketika kita tidak/belum menetapkan webpack configuration,
+nilai entry standarnya akan berlokasi pada src -> index.js.
+Karena itu, jika belum terdapat file src -> index.js maka ketika kita menjalankan 'npm run build' akan
+muncul pesan error.
+
+Hasil bundle dari 'npm run build' terdapat di dalam folder 'dist' yang merupakan hasil bundle dari file src -> index.js
+
+
+
+Untuk menetapkan loaders kita gunakan properti module.rules pada webpack configuration (webpack.config.js).
+Di dalamnya terdapat dua high level properties yaitu test, dan use.
+
+Berikut penjelasan singkatnya:
+  - Properti test : Tipe berkas yang akan ditransformasikan.
+  - Properti use  : Loader mana yang akan digunakan untuk mentransformasikan berkas tersebut.
+
+Contoh :
+    module.exports = {
+      module: {
+        rules: [
+          { test: /\.css$/, use: 'css-loader' }
+        ]
+      }
+    };
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Tujuan dari development dan production memanglah berbeda. Pada tahap development webpack akan menerapkan
+konfigurasi yang selalu optimal untuk mempercepat proses perubahan pada browser (hot reloading).
+Sedangkan pada proses production kita ingin fokus terhadap optimasi bundling dan kompatibilitasnya pada browser.
+Karena perbedaan fokus tersebut sebaiknya kita memisahkan konfigurasi antara keduanya.
+
+WEBPACK CONFIGURATION ENVIRONMENT : {
+  Production :
+  - entry   : entry-point.js
+  - output  : bundle.js
+  - mode    : "production"
+  - loader  : style-loader
+              css-loader
+              babel-loader
+  - plugin  : HtmlWebpackPlugin
+
+  Development :
+  - entry   : entry-point.js
+  - output  : bundle.js
+  - mode    : "development"
+  - loader  : style-loader
+              css-loader
+  - plugin  : HtmlWebpackPlugin
+}
+
+Namun jika berpatokan pada bagan di atas, antara keduanya terdapat konfigurasi umum (common)
+seperti entry, output, style-loader, css-loader dan HtmlWebpackPlugin. Untuk menghindari penulisan berulang,
+kita dapat menggunakan tools yang bernama webpack-merge yang berfungsi untuk menggabungkan konfigurasi umum
+dengan konfigurasi unik tiap environment-nya.
